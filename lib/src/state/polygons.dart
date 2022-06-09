@@ -29,13 +29,19 @@ class PolygonsState {
       required Color color,
       required double borderWidth,
       required Color borderColor,
-      bool isFilled = true}) async {
+      bool isFilled = true,
+      String? label,
+      PolygonLabelPlacement labelPlacement = PolygonLabelPlacement.centroid,
+      TextStyle? labelStyle}) async {
     _namedPolygons[name] = Polygon(
         points: points,
         color: color,
         borderStrokeWidth: borderWidth,
         borderColor: borderColor,
-        isFilled: isFilled);
+        isFilled: isFilled,
+        label: label,
+        labelPlacement: labelPlacement,
+        labelStyle: labelStyle);
     notify("updatePolygons", _namedPolygons[name], addPolygon,
         MapControllerChangeType.polygons);
   }
