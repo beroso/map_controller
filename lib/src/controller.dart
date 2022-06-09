@@ -222,13 +222,15 @@ class StatefulMapController {
           required List<LatLng> points,
           Color color = Colors.lightBlue,
           double borderWidth = 0.0,
-          Color borderColor = const Color(0xFFFFFF00)}) =>
+          Color borderColor = const Color(0xFFFFFF00),
+          bool isFilled = true}) =>
       _polygonsState.addPolygon(
           name: name,
           points: points,
           color: color,
           borderWidth: borderWidth,
-          borderColor: borderColor);
+          borderColor: borderColor,
+          isFilled: isFilled);
 
   /// Switch to a tile layer
   void switchTileLayer(TileLayerType layer) =>
