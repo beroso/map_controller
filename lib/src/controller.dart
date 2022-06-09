@@ -223,14 +223,20 @@ class StatefulMapController {
           Color color = Colors.lightBlue,
           double borderWidth = 0.0,
           Color borderColor = const Color(0xFFFFFF00),
-          bool isFilled = true}) =>
+          bool isFilled = true,
+          String? label,
+          PolygonLabelPlacement labelPlacement = PolygonLabelPlacement.centroid,
+          TextStyle? labelStyle}) =>
       _polygonsState.addPolygon(
           name: name,
           points: points,
           color: color,
           borderWidth: borderWidth,
           borderColor: borderColor,
-          isFilled: isFilled);
+          isFilled: isFilled,
+          label: label,
+          labelPlacement: labelPlacement,
+          labelStyle: labelStyle);
 
   /// Switch to a tile layer
   void switchTileLayer(TileLayerType layer) =>
