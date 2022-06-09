@@ -28,12 +28,14 @@ class PolygonsState {
       required List<LatLng> points,
       required Color color,
       required double borderWidth,
-      required Color borderColor}) async {
+      required Color borderColor,
+      bool isFilled = true}) async {
     _namedPolygons[name] = Polygon(
         points: points,
         color: color,
         borderStrokeWidth: borderWidth,
-        borderColor: borderColor);
+        borderColor: borderColor,
+        isFilled: isFilled);
     notify("updatePolygons", _namedPolygons[name], addPolygon,
         MapControllerChangeType.polygons);
   }
