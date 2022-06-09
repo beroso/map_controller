@@ -41,7 +41,7 @@ class PolygonsState {
         isFilled: isFilled,
         label: label,
         labelPlacement: labelPlacement,
-        labelStyle: labelStyle);
+        labelStyle: labelStyle ?? TextStyle());
     notify("updatePolygons", _namedPolygons[name], addPolygon,
         MapControllerChangeType.polygons);
   }
