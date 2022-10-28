@@ -25,7 +25,7 @@ class StatefulMapController {
   StatefulMapController(
       {required this.mapController,
       this.tileLayerType = TileLayerType.normal,
-      this.customTileLayer,
+      //this.customTileLayer,
       this.verbose = false})
       : assert(mapController != null) {
     // init state
@@ -35,18 +35,25 @@ class StatefulMapController {
     _mapState = MapState(mapController: mapController, notify: notify);
     _statefulMarkersState =
         StatefulMarkersState(mapController: mapController, notify: notify);
-    if (customTileLayer != null) {
-      tileLayerType = TileLayerType.custom;
-    }
-    _tileLayerState = TileLayerState(
-        type: tileLayerType, customTileLayer: customTileLayer, notify: notify);
+    // if (customTileLayer != null) {
+    //   tileLayerType = TileLayerType.custom;
+    // }
+    // _tileLayerState = TileLayerState(
+    //     type: tileLayerType, customTileLayer: customTileLayer, notify: notify);
     // ignore: unnecessary_cast
-    mapController.onReady.then((_) {
-      // fire the map is ready callback
-      if (!_readyCompleter.isCompleted) {
-        _readyCompleter.complete();
+    mapController.mapEventStream.listen((event) {
+      if (event.source == MapEventSource.initialization) {
+        if (!_readyCompleter.isCompleted) {
+          _readyCompleter.complete();
+        }
       }
     });
+    // mapController.onReady.then((_) {
+    //   // fire the map is ready callback
+    //   if (!_readyCompleter.isCompleted) {
+    //     _readyCompleter.complete();
+    //   }
+    // });
   }
 
   /// The Flutter Map [MapController]
@@ -59,7 +66,7 @@ class StatefulMapController {
   TileLayerType tileLayerType;
 
   /// A custom tile layer options
-  TileLayerOptions? customTileLayer;
+  //TileLayerOptions? customTileLayer;
 
   /// Verbosity level
   final bool verbose;
@@ -68,7 +75,7 @@ class StatefulMapController {
   late MarkersState _markersState;
   late LinesState _linesState;
   late PolygonsState _polygonsState;
-  late TileLayerState _tileLayerState;
+  //late TileLayerState _tileLayerState;
   late StatefulMarkersState _statefulMarkersState;
 
   final Completer<void> _readyCompleter = Completer<void>();
@@ -129,7 +136,7 @@ class StatefulMapController {
   Map<String, Polygon> get namedPolygons => _polygonsState.namedPolygons;
 
   /// The current map tile layer
-  TileLayerOptions? get tileLayer => _tileLayerState.tileLayer;
+  //TileLayerOptions? get tileLayer => _tileLayerState.tileLayer;
 
   /// Zoom in one level
   Future<void> zoomIn() => _mapState.zoomIn();
@@ -239,8 +246,8 @@ class StatefulMapController {
           labelStyle: labelStyle);
 
   /// Switch to a tile layer
-  void switchTileLayer(TileLayerType layer) =>
-      _tileLayerState.switchTileLayer(layer);
+  // void switchTileLayer(TileLayerType layer) =>
+  //     _tileLayerState.switchTileLayer(layer);
 
   /// Display some geojson data on the map
   Future<void> fromGeoJson(String data,
